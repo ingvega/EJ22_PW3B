@@ -1,0 +1,31 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    overflow: hidden;
+}
+div:first-child{
+    padding: 3rem 1rem;
+    background-color: rgb(127, 161, 255);
+    transition: margin-top 4s;
+    width: 100%;
+    position: absolute;
+}
+div:nth-child(2){
+    padding: 3rem 1rem;
+    background-color: aquamarine;
+    transition: padding 3s,margin-left 4s;
+    width: 100%;
+    margin-top: 114px;
+}
+
+div:nth-child(2):hover{
+    padding-left: 500px;
+    margin-left: 500px;
+}
+
+div:first-child:hover{
+    margin-top: 500px;
+}
