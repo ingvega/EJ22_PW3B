@@ -6,14 +6,16 @@
 body{
     overflow: hidden;
 }
-div:first-child{
+#div1{
     padding: 3rem 1rem;
     background-color: rgb(127, 161, 255);
-    transition: margin-top 4s;
+    /*transition: margin-top 4s;*/
+    transition: top 4s;
     width: 100%;
     position: absolute;
+    top:0;
 }
-div:nth-child(2){
+#div2{
     padding: 3rem 1rem;
     background-color: aquamarine;
     transition: padding 3s,margin-left 4s;
@@ -21,11 +23,40 @@ div:nth-child(2){
     margin-top: 114px;
 }
 
-div:nth-child(2):hover{
+#div2:hover{
     padding-left: 500px;
     margin-left: 500px;
 }
 
-div:first-child:hover{
-    margin-top: 500px;
+#div1:hover{
+    /*margin-top: 500px;*/
+    top:500px;
+}
+
+.imagen{
+    height: 30vw;
+    width: 30vw;
+    position: absolute;
+}
+img{
+    opacity: .3;
+    transition: opacity 2s;
+    height: 30vw;
+    width: 30vw;
+    position: absolute;
+    z-index: 0;
+    filter: blur(4px);
+}
+
+img:hover{
+    opacity: 1;
+}
+
+.cubierta{
+    background-color: #fff;
+    height: 30vw;
+    width: 30vw;
+    z-index: 2;
+    position: absolute;
+    opacity: .2;
 }
