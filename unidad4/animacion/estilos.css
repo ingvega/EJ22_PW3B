@@ -1,0 +1,47 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+img{
+    height: 10vw;
+    width: 10vw;
+    border-radius: 50%;
+    animation-name: girar,desplazar,caer;
+    animation-delay: 0s,1s,7s;
+    animation-duration: .8s,6s,2s;
+    animation-timing-function: linear,linear,linear;
+    animation-iteration-count: infinite,1,1;
+    animation-fill-mode: forwards,forwards,forwards;
+}
+
+@keyframes girar {
+    /*Estado inicial*/
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes desplazar {
+    /*Estado inicial*/
+    from{
+        margin-left: 0;
+    }
+    to{
+        margin-left: 90vw;
+    }
+}
+
+@keyframes caer {
+    /*Estado inicial*/
+    from{
+        margin-top: 0;
+    }
+    to{
+        margin-top: 89vh;
+    }
+}

@@ -1,0 +1,38 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+div{ width: 100px; height: 100px; background-color: #000;}
+#div1{ animation: moverDiv1 1s linear 0s 1 forwards;}
+#div2{
+    margin-left: 25%;
+    animation: moverDiv2 1s linear 1s 1 forwards;
+}
+#div3{
+    margin-left: 50%;
+    animation: moverDiv3 1s linear 2s 1 forwards;
+}
+#div4{
+    margin-left: 75%;
+    animation: moverDiv4 1s linear 3s 1 forwards;
+}
+
+@keyframes moverDiv1{
+    from{ margin-left: 0%; }
+    to{ margin-left: 25%; }
+}
+@keyframes moverDiv2{
+    from{ margin-left: 25%; }
+    to{ margin-left: 50%; }
+}
+@keyframes moverDiv3{
+    from{ margin-left: 50%; }
+    to{ margin-left: 75%; }
+}
+@keyframes moverDiv4{
+    from{ margin-left: 75%; }
+    to{ margin-left: 100%; }
+}
+

@@ -39,24 +39,42 @@ body{
     position: absolute;
 }
 img{
-    opacity: .3;
-    transition: opacity 2s;
+    /*opacity: .3;*/
+    /*transition: all 2s linear;*/
     height: 30vw;
     width: 30vw;
     position: absolute;
     z-index: 0;
-    filter: blur(4px);
+    
 }
 
-img:hover{
+/*img:hover{
     opacity: 1;
+    filter: blur(0px);
+}*/
+
+.cubierta:hover{
+    opacity: 1;
+    transform: scale(1.1);
 }
 
 .cubierta{
-    background-color: #fff;
+    background-image: url(itsur.png);
+    background-size: 30vw 30vw;
     height: 30vw;
     width: 30vw;
     z-index: 2;
     position: absolute;
-    opacity: .2;
+    opacity: 1;
+    filter: blur(4px);
+    -moz-transition: opacity 2s;
+    -webkit-transition: opacity 2s;
+    -o-transition: opacity 2s;
+    -ms-transition: opacity 2s;
+    transition: opacity 2s, transform 2s;
+
+    margin-left: 5px;
+    margin-right: 5px; 
+    margin-top: 5px;
+
 }
