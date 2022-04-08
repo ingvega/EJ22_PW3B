@@ -8,14 +8,23 @@
     display: flex;
     justify-content: center;
     perspective: 500px;
-    perspective-origin: center top;
+    perspective-origin: center bottom;
 }
 
-.letra{
-    font-size: 5rem;
+.letra{ transform-style: preserve-3d;
+/*transform: rotateY(180deg);*/
+}
+
+.cara{ width: 70px;
+    height: 100px;
+    background-color: rgb(216, 214, 214);}
+
+.frente{
+    font-size: 4rem;
     font-weight: bolder;
+    text-align: center;
+    line-height: 100px;
     backface-visibility: hidden;
-    transform: rotateY(180deg);
-    background-color: white;
-    transform-style: preserve-3d;
+    
+    
 }

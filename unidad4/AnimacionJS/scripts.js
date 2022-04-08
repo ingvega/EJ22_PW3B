@@ -1,3 +1,4 @@
+var animaciones=[];
 /*var alumno={
     'nombre':'Juan Perez',
     'carrera':Sistemas,
@@ -34,8 +35,8 @@ window.addEventListener("load",function(){
         [{keyframes}],
         {configuración de la animación}
     );*/
-    var retardo=1000;
-    var animaciones=[];
+    var retardo=500;
+    
     for(var i=0;i<letras.length;i++){
         animaciones[i]=letras[i].animate(
             [
@@ -50,12 +51,29 @@ window.addEventListener("load",function(){
                 fill: 'forwards'
             }
         );
-        retardo+=1000;
+        retardo+=500;
     }
 
     
 });
 
+function acelerar(){
+    for(var i=0;i<animaciones.length;i++){
+        animaciones[i].playbackRate++;
+    }
+}
+
+function desacelerar(){
+    for(var i=0;i<animaciones.length;i++){
+        animaciones[i].playbackRate--;
+    }
+}
+
+function pausar(){
+    for(var i=0;i<animaciones.length;i++){
+        animaciones[i].playbackRate=0;
+    }
+}
 
 /*
 var boton=document.getElementById("btnAccion");
