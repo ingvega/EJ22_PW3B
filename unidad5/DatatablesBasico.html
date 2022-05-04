@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi primer ejercicio con datatables</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/rowgroup/1.1.4/css/rowGroup.dataTables.min.css">
+</head>
+<body>
+    <table id="tblTopProductos"></table>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="http://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/rowgroup/1.1.4/js/dataTables.rowGroup.min.js"></script>
+    <script>
+        $(document).ready( function () {
+            var listaTop=[{
+                cliente:'C1',producto:'A',
+                precio:10,unidadesVendidas:100,
+                montoVentas:1000
+            },
+            {
+                cliente:'C1',producto:'Z',
+                precio:100,unidadesVendidas:5,
+                montoVentas:500
+            },
+            {
+                cliente:'C1',producto:'M',
+                precio:50,unidadesVendidas:3,
+                montoVentas:150
+            },
+            {
+                cliente:'C23',producto:'M',
+                precio:50,unidadesVendidas:2000,
+                montoVentas:10000
+            }];
+            $('#tblTopProductos').DataTable(
+                {
+                    data: listaTop,
+                    columns: [
+                        { title: 'Cliente', data: 'cliente' },
+                        { title: 'Producto', data: 'producto' },
+                        { title: 'Precio', data: 'precio' },
+                        { title: 'Unidades vendidas', data: 'unidadesVendidas' },
+                        { title: 'Monto de ventas', data: 'montoVentas' }
+                    ],
+                    order:[[1,'asc'],[0,'desc']],
+                    rowGroup: {
+                        endRender: function ( rows, group ) {
+                            var suma = rows
+                                .data()
+                                .pluck(4)
+                                .reduce( function (a, b) {
+                                    return a + b*1;
+                                }, 0);
+            
+                            return group + ' ('+rows.count()+')    TOTAL: '+
+                                $.fn.dataTable.render.number(',', '.', 0, '$').display( suma );
+                        },
+                        dataSrc: 'producto'
+                    },
+                    
+                } );
+        });
+    </script>
+</body>
+</html>
