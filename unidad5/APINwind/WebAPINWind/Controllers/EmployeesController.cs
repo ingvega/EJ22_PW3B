@@ -28,20 +28,97 @@ namespace WebAPINWind.Controllers
             return await _context.Employees.ToListAsync();
         }
 
-        // GET: api/Employees/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Employee>> GetEmployee(int id)
+        // GET: api/Employees/Top5BySales
+        [HttpGet]
+        [Route("Top5BySales")]
+        public IEnumerable<Object> GetTop5BySales()
         {
-            var employee = await _context.Employees.FindAsync(id);
+            return _context.Employees
+                .Where(e => e.CompanyId == 1)
+                .Join(_context.Movements,
+                e => e.EmployeeId,
+                m => m.EmployeeId,
+                (e, m) => new
+                {
+                    Empleado = e.FirstName + " " + e.LastName,
+                    Fecha = m.Date,
+                    IdMov = m.MovementId
+                })
+                .Where(em => em.Fecha.Year == 1997)
+                .Join(_context.Movementdetails,
+                em => em.IdMov,
+                m => m.MovementId,
+                (em, m) => new
+                {
+                    Empleado = em.Empleado,
+                    Cantidad = m.Quantity
+                })
+                .GroupBy(e=> e.Empleado)
+                .Select(e => new
+                {
+                    Empleado = e.Key,
+                    VentasTotales = e.Sum(g => g.Cantidad)
+                })
+                .OrderByDescending(e => e.VentasTotales)
+                .Take(5);
+                /*
+                JS
+                function(parametro){
+                    return parametro.campo == 5;            
+                }*/
+        
+        }
+        // GET: api/Employees/ByCompany/2
+        [HttpGet("{companyId}")]
+        public IEnumerable<Object> GetEmployeesByCompany(int companyId)
+        {
+            /*Los empleados de una compañía especificada
+             * return _context.Employees
+                        .Where(e => e.CompanyId== companyId);
+            */
 
-            if (employee == null)
-            {
-                return NotFound();
-            }
+            /*Los empleados de una compañía especificada
+            *solo mostrar El nombre y la fecha*/
+            //return _context.Employees
+            //    .Where(e => e.CompanyId== companyId)
+            //    .Select(e => new Employee() { 
+            //        FirstName=e.FirstName,
+            //        LastName=e.LastName,
+            //        HireDate=e.HireDate
+            //    });
 
-            return employee;
+            return _context.Employees
+                .Where(e => e.CompanyId == companyId)
+                .Select(e => new
+                {
+                    Name = e.FirstName + " " + e.LastName,
+                    HireDate = e.HireDate
+                });
+
         }
 
+
+        /*
+         Select * From Employees e Where CompanyId=X
+         */
+
+
+
+        /*
+                // GET: api/Employees/5
+                [HttpGet("{id}")]
+                public async Task<ActionResult<Employee>> GetEmployee(int id)
+                {
+                    var employee = await _context.Employees.FindAsync(id);
+
+                    if (employee == null)
+                    {
+                        return NotFound();
+                    }
+
+                    return employee;
+                }
+        */
         // PUT: api/Employees/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
