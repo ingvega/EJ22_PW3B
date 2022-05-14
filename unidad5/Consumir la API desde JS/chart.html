@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="graficaEmpleados"></div>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load("current", {packages:['corechart']});
+        google.charts.setOnLoadCallback(cargarDatos);
+        function cargarDatos(){
+            fetch("https://localhost:44386/api/Employees/Top5BySales")
+                .then(response => response.json())
+                .then(data => drawChart(data))
+                .catch(error => console.error('Unable to get items.', error));
+        
+        }
+        function drawChart(empleados) {
+            var arreglo=[];
+            arreglo.push(["Empleado","VentasTotales"]);
+            empleados.forEach(e => {
+                arreglo.push([e.empleado,e.ventasTotales]);
+            });
+            var data = google.visualization.arrayToDataTable(arreglo);
+
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1,
+                        { calc: "stringify",
+                            sourceColumn: 1,
+                            type: "string",
+                            role: "annotation" }]);
+
+        var options = {
+            title: "Top 5 de empleados por ventas de 1997",
+            width: 600,
+            height: 400,
+            bar: {groupWidth: "95%"},
+            legend: { position: "none" },
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById("graficaEmpleados"));
+        chart.draw(view, options);
+    }
+  </script>
+
+</body>
+</html>

@@ -30,7 +30,9 @@
                     data: empleados,
                     columns: [
                         { title: 'Empleado', data: 'empleado' },
-                        { title: 'Total de unidades vendidas', data: 'ventasTotales' }
+                        { title: 'Total de unidades vendidas', 
+                        data: 'ventasTotales',
+                        render: DataTable.render.number(',','.',0) }
                     ],
                     order:[[1,'desc'],[0,'asc']]
                     

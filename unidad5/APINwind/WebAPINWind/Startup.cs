@@ -31,11 +31,24 @@ namespace WebAPINWind
             services.AddDbContext<NorthwindContext>(options => {
                 options.UseMySql(Configuration.GetConnectionString("BDNorthwind"), ServerVersion.Parse("8.0.15-mysql"));
             });
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    policy =>
+                    {
+                        //Dominio del del cliente que consumirá la API (Apache, Liveserver, IIS, etc)
+                        policy.WithOrigins("http://127.0.0.1:5500",
+                 "http://localhost:8081");
+                    });
+            });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPINWind", Version = "v1" });
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +60,9 @@ namespace WebAPINWind
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPINWind v1"));
             }
+
+            //Habilita cors y aplica la política antes definida
+            app.UseCors();
 
             app.UseHttpsRedirection();
 
